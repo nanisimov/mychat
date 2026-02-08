@@ -1,0 +1,79 @@
+// LO
+
+CREATE (m1:na_Market{Name:"SF_BayArea",Market_Category:"Non-Core"})
+CREATE (b11:na_Building{BE_NAME:"333 Market_St",city:"San Francisco",state:"CA",line1:"333 Market St."})
+CREATE (f111:na_Floor{name:"Floor32"})
+CREATE (nh1111:na_NH{name:"Negborhood_A",hc:100})
+CREATE (nh1112:na_NH{name:"Negborhood_B",hc:95}) 
+CREATE (f112:na_Floor{name:"Floor33"})
+CREATE (nh1121:na_NH{name:"Negborhood_A",hc:99})
+CREATE (nh1122:na_NH{name:"Negborhood_B",hc:80})
+CREATE (nh1123:na_NH{name:"Negborhood_C",hc:80})
+MERGE (m1)<-[:BELONGS_TO_MARKET]-(b11)
+MERGE (f112)-[:BELONGS_TO_BUILDING]->(b11)<-[:BELONGS_TO_BUILDING]-(f111)
+MERGE (nh1111)-[:BELONGS_TO_FLOOR]->(f111)<-[:BELONGS_TO_FLOOR]-(nh1112)
+MERGE (nh1121)-[:BELONGS_TO_FLOOR]->(f112)<-[:BELONGS_TO_FLOOR]-(nh1122)
+MERGE (nh1123)-[:BELONGS_TO_FLOOR]->(f112)
+
+CREATE (b12:na_Building{BE_NAME:"Concord_CA",city:"Concord",state:"CA",line1:"1755 Grant St."})
+CREATE (f121:na_Floor{name:"Floor2"})
+CREATE (nh1211:na_NH{name:"Negborhood_A",hc:100})
+CREATE (nh1212:na_NH{name:"Negborhood_B",hc:95})
+CREATE (f122:na_Floor{name:"Floor4"})
+CREATE (nh1221:na_NH{name:"Negborhood_A",hc:50})
+CREATE (nh1222:na_NH{name:"Negborhood_B",hc:40})
+CREATE (nh1223:na_NH{name:"Negborhood_C",hc:60})
+
+MERGE (m1)<-[:BELONGS_TO_MARKET]-(b12)
+MERGE (f122)-[:BELONGS_TO_BUILDING]->(b12)<-[:BELONGS_TO_BUILDING]-(f121)
+MERGE (nh1211)-[:BELONGS_TO_FLOOR]->(f121)<-[:BELONGS_TO_FLOOR]-(nh1212)
+MERGE (nh1221)-[:BELONGS_TO_FLOOR]->(f122)<-[:BELONGS_TO_FLOOR]-(nh1222)
+MERGE (nh1223)-[:BELONGS_TO_FLOOR]->(f122)
+
+MERGE (o:na_Organization{name:"Wells Fargo Bank"})<-[:PART_OF]-(m1)
+
+
+CREATE (bs:na_Business{org:"Wells Fargo Bank"})
+CREATE (l1:na_Line_of_Business{name:"Corporate",level:1})
+CREATE (l11:na_Line_of_Business{name:"Corporate Functions",level:2})
+CREATE (l111:na_Line_of_Business{name:"Technology",level:3})
+CREATE (l112:na_Line_of_Business{name:"Chief Operating Office",level:3})
+CREATE (l113:na_Line_of_Business{name:"Human Resources",level:3})
+CREATE (l114:na_Line_of_Business{name:"Corporate Risk",level:3})
+
+MERGE (bs)-[:LOB_NEXT]->(l1)
+MERGE (l1)-[:LOB_NEXT]->(l11)
+MERGE (l11)-[:LOB_NEXT]->(l111)
+MERGE (l11)-[:LOB_NEXT]->(l112)
+MERGE (l11)-[:LOB_NEXT]->(l113)
+MERGE (l11)-[:LOB_NEXT]->(l114)
+
+MERGE (l111)-[:LOCATED_IN]->(nh1111)
+MERGE (l111)-[:LOCATED_IN]->(nh1112)
+MERGE (l111)-[:LOCATED_IN]->(nh1211)
+MERGE (l113)-[:LOCATED_IN]->(nh1121)
+MERGE (l112)-[:LOCATED_IN]->(nh1122)
+MERGE (l112)-[:LOCATED_IN]->(nh1123)
+MERGE (l112)-[:LOCATED_IN]->(nh1212)
+MERGE (l114)-[:LOCATED_IN]->(nh1122)
+MERGE (l114)-[:LOCATED_IN]->(nh1223)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Neighborhood 
