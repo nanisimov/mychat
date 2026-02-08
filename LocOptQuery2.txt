@@ -3,12 +3,12 @@
 CREATE (m1:Market{name:"SF_BayArea",Market_Category:"Non-Core",owner:"Nikolai"})
 CREATE (b11:Building{owner:"Nikolai",name:"333 Market_St",city:"San Francisco",state:"CA",line1:"333 Market St."})
 CREATE (f111:Floor{owner:"Nikolai",name:"Floor32"})
-CREATE (nh1111:NEGBORHOOD{owner:"Nikolai",name:"Negborhood_A",headcount:100})
-CREATE (nh1112:NEGBORHOOD{owner:"Nikolai",name:"Negborhood_B",headcount:95}) 
+CREATE (nh1111:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_A",headcount:100})
+CREATE (nh1112:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_B",headcount:95}) 
 CREATE (f112:Floor{owner:"Nikolai",name:"Floor33"})
-CREATE (nh1121:NEGBORHOOD{owner:"Nikolai",name:"Negborhood_A",headcount:99})
-CREATE (nh1122:NEGBORHOOD{owner:"Nikolai",name:"Negborhood_B",headcount:80})
-CREATE (nh1123:NEGBORHOOD{owner:"Nikolai",name:"Negborhood_C",headcount:80})
+CREATE (nh1121:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_A",headcount:99})
+CREATE (nh1122:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_B",headcount:80})
+CREATE (nh1123:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_C",headcount:80})
 MERGE (m1)<-[:BELONGS_TO_MARKET]-(b11)
 MERGE (f112)-[:BELONGS_TO_BUILDING]->(b11)<-[:BELONGS_TO_BUILDING]-(f111)
 MERGE (nh1111)-[:BELONGS_TO_FLOOR]->(f111)<-[:BELONGS_TO_FLOOR]-(nh1112)
@@ -17,12 +17,12 @@ MERGE (nh1123)-[:BELONGS_TO_FLOOR]->(f112)
 
 CREATE (b12:Building{owner:"Nikolai",name:"Concord_CA",city:"Concord",state:"CA",line1:"1755 Grant St."})
 CREATE (f121:Floor{owner:"Nikolai",name:"Floor2"})
-CREATE (nh1211:NEGBORHOOD{owner:"Nikolai",name:"Negborhood_A",headcount:100})
-CREATE (nh1212:NEGBORHOOD{owner:"Nikolai",name:"Negborhood_B",headcount:95})
+CREATE (nh1211:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_A",headcount:100})
+CREATE (nh1212:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_B",headcount:95})
 CREATE (f122:Floor{owner:"Nikolai",name:"Floor4"})
-CREATE (nh1221:NEGBORHOOD{owner:"Nikolai",name:"Negborhood_A",headcount:50})
-CREATE (nh1222:NEGBORHOOD{owner:"Nikolai",name:"Negborhood_B",headcount:40})
-CREATE (nh1223:NEGBORHOOD{owner:"Nikolai",name:"Negborhood_C",headcount:60})
+CREATE (nh1221:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_A",headcount:50})
+CREATE (nh1222:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_B",headcount:40})
+CREATE (nh1223:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_C",headcount:60})
 
 MERGE (m1)<-[:BELONGS_TO_MARKET]-(b12)
 MERGE (f122)-[:BELONGS_TO_BUILDING]->(b12)<-[:BELONGS_TO_BUILDING]-(f121)
@@ -70,10 +70,4 @@ MERGE (l114)-[:LOCATED_IN]->(nh1223)
 
 
 
-
-
-
-
-
-
-Neighborhood 
+Neghborhood 
