@@ -1,28 +1,28 @@
 // LO
 
 CREATE (m1:Market{name:"SF_BayArea",Market_Category:"Non-Core",owner:"Nikolai"})
-CREATE (b11:Building{owner:"Nikolai",name:"333 Market_St",city:"San Francisco",state:"CA",line1:"333 Market St."})
+CREATE (b11:Building{owner:"Nikolai",name:"333 Market_St",city:"San Francisco",state:"CA",line1:"333 Market St.",cost_of_seat:900})
 CREATE (f111:Floor{owner:"Nikolai",name:"Floor32"})
-CREATE (nh1111:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_A",headcount:100})
-CREATE (nh1112:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_B",headcount:95}) 
+CREATE (nh1111:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_A",headcount:100,number_seats:110})
+CREATE (nh1112:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_B",headcount:95,number_seats:90}) 
 CREATE (f112:Floor{owner:"Nikolai",name:"Floor33"})
-CREATE (nh1121:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_A",headcount:99})
-CREATE (nh1122:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_B",headcount:80})
-CREATE (nh1123:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_C",headcount:80})
+CREATE (nh1121:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_A",headcount:99,number_seats:110})
+CREATE (nh1122:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_B",headcount:80,number_seats:110})
+CREATE (nh1123:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_C",headcount:80,number_seats:110})
 MERGE (m1)<-[:BELONGS_TO_MARKET]-(b11)
 MERGE (f112)-[:BELONGS_TO_BUILDING]->(b11)<-[:BELONGS_TO_BUILDING]-(f111)
 MERGE (nh1111)-[:BELONGS_TO_FLOOR]->(f111)<-[:BELONGS_TO_FLOOR]-(nh1112)
 MERGE (nh1121)-[:BELONGS_TO_FLOOR]->(f112)<-[:BELONGS_TO_FLOOR]-(nh1122)
 MERGE (nh1123)-[:BELONGS_TO_FLOOR]->(f112)
 
-CREATE (b12:Building{owner:"Nikolai",name:"Concord_CA",city:"Concord",state:"CA",line1:"1755 Grant St."})
+CREATE (b12:Building{owner:"Nikolai",name:"Concord_CA",city:"Concord",state:"CA",line1:"1755 Grant St.",cost_of_seat:500})
 CREATE (f121:Floor{owner:"Nikolai",name:"Floor2"})
-CREATE (nh1211:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_A",headcount:100})
-CREATE (nh1212:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_B",headcount:95})
+CREATE (nh1211:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_A",headcount:100,number_seats:90})
+CREATE (nh1212:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_B",headcount:95,number_seats:100})
 CREATE (f122:Floor{owner:"Nikolai",name:"Floor4"})
-CREATE (nh1221:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_A",headcount:50})
-CREATE (nh1222:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_B",headcount:40})
-CREATE (nh1223:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_C",headcount:60})
+CREATE (nh1221:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_A",headcount:50,number_seats:100})
+CREATE (nh1222:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_B",headcount:40,number_seats:50})
+CREATE (nh1223:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_C",headcount:60,number_seats:50 })
 
 MERGE (m1)<-[:BELONGS_TO_MARKET]-(b12)
 MERGE (f122)-[:BELONGS_TO_BUILDING]->(b12)<-[:BELONGS_TO_BUILDING]-(f121)
@@ -37,9 +37,9 @@ CREATE (bs:Business{name:"Wells Fargo Bank",owner:"Nikolai"})
 CREATE (l1:Line_of_Business{owner:"Nikolai",name:"Corporate",level:1})
 CREATE (l11:Line_of_Business{owner:"Nikolai",name:"Corporate Functions",level:2})
 CREATE (l111:Line_of_Business{owner:"Nikolai",name:"Technology",level:3})
-CREATE (l112:Line_of_Business{owner:"Nikolai",name:"Chief Operating Office",level:3})
-CREATE (l113:Line_of_Business{owner:"Nikolai",name:"Human Resources",level:3})
-CREATE (l114:Line_of_Business{owner:"Nikolai",name:"Corporate Risk",level:3})
+CREATE (l112:Line_of_Business{owner:"Nikolai",name:"Chief Operating Office",level:3,demand:300})
+CREATE (l113:Line_of_Business{owner:"Nikolai",name:"Human Resources",level:3,demand:15})
+CREATE (l114:Line_of_Business{owner:"Nikolai",name:"Corporate Risk",level:3,demand:250})
 
 MERGE (bs)-[:LOB_NEXT]->(l1)
 MERGE (l1)-[:LOB_NEXT]->(l11)
@@ -57,6 +57,64 @@ MERGE (l112)-[:LOCATED_IN]->(nh1123)
 MERGE (l112)-[:LOCATED_IN]->(nh1212)
 MERGE (l114)-[:LOCATED_IN]->(nh1122)
 MERGE (l114)-[:LOCATED_IN]->(nh1223)
+MERGE (l112)-[:LOCATED_IN]->(nh1221)
+MERGE (l112)-[:LOCATED_IN]->(nh1222)
+
+// Charlotte Market
+
+CREATE (m2:Market{name:"Charlotte",Market_Category:"Core",owner:"Nikolai"})
+MERGE (o)<-[:PART_OF]-(m2)
+
+CREATE (b21:Building{owner:"Nikolai",name:"Customer Information",city:"Charlotte",state:"NC",line1:"1525 Harris Blvd",cost_of_seat:700})
+CREATE (b22:Building{owner:"Nikolai",name:"Brigham Building",city:"Charlotte",state:"NC",line1:"11625 Community House Rd.",cost_of_seat:650})
+MERGE (b21)-[:BELONGS_TO_MARKET]->(m2)<-[:BELONGS_TO_MARKET]-(b22)
+
+CREATE (f211:Floor{owner:"Nikolai",name:"Floor7"})
+CREATE (nh2111:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_A",headcount:40,number_seats:30})
+CREATE (nh2112:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_B",headcount:30,number_seats:35})
+
+CREATE (f212:Floor{owner:"Nikolai",name:"Floor8"})
+CREATE (nh2121:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_E",headcount:99,number_seats:90})
+CREATE (nh2122:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_F",headcount:80,number_seats:70})
+
+MERGE (f212)-[:BELONGS_TO_BUILDING]->(b21)<-[:BELONGS_TO_BUILDING]-(f211)
+MERGE (nh2111)-[:BELONGS_TO_FLOOR]->(f211)<-[:BELONGS_TO_FLOOR]-(nh2112)
+MERGE (nh2121)-[:BELONGS_TO_FLOOR]->(f212)<-[:BELONGS_TO_FLOOR]-(nh2122)
+
+CREATE (f221:Floor{owner:"Nikolai",name:"Floor1"})
+CREATE (nh2211:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_A",headcount:40,number_seats:200})
+CREATE (nh2212:NEIGBORHOOD{owner:"Nikolai",name:"Neigborhood_B",headcount:30,number_seats:150})
+
+MERGE (b22)<-[:BELONGS_TO_BUILDING]-(f221)
+MERGE (nh2211)-[:BELONGS_TO_FLOOR]->(f221)<-[:BELONGS_TO_FLOOR]-(nh2212)
+
+MERGE (l111)-[:LOCATED_IN]->(nh2112)
+MERGE (l113)-[:LOCATED_IN]->(nh2122)
+MERGE (l112)-[:LOCATED_IN]->(nh2212)
+MERGE (l114)-[:LOCATED_IN]->(nh2222)
+
+MERGE (l113)-[:LOCATED_IN]->(nh2211)
+MERGE (l113)-[:LOCATED_IN]->(nh2211)
+MERGE (l112)-[:LOCATED_IN]->(nh2111)
+MERGE (l113)-[:LOCATED_IN]->(nh2121)
+
+
+
+
+MATCH (x)-[y]-(z) 
+WHERE labels(x)[0]="Line_of_Business" AND labels(z)[0]<>"NEIGBORHOOD"
+RETURN *
+
+MATCH (x)-[y]-(z) 
+WHERE labels(x)[0]<>"Line_of_Business" AND labels(z)[0]<>"Line_of_Business"
+RETURN *
+
+MATCH (x)-[y]-(z) 
+WHERE type(y)<>"LOCATED_IN"
+RETURN *
+
+
+
 
 
 
